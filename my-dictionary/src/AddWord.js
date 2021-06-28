@@ -1,6 +1,9 @@
 import React from "react";
 import { Form, Input, Button, PageHeader } from "antd";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { addWord } from "./redux/modules/words";
+import { addWordFB } from "./redux/modules/words";
 
 const layout = {
   labelCol: {
@@ -12,23 +15,40 @@ const layout = {
 };
 
 const AddWord = (props) => {
-  const onFinish = () => {};
+  const dispatch = useDispatch();
+  const input_word_el = React.useRef(null);
+  const input_desc_el = React.useRef(null);
+  const input_example_el = React.useRef(null);
+
+  const onFinish = () => {
+    const new_word = {
+      word: input_word_el.current.state.value,
+      desc: input_desc_el.current.resizableTextArea.props.value,
+      example: input_example_el.current.resizableTextArea.props.value,
+    };
+    // console.log(new_word);
+    dispatch(addWordFB(new_word));
+    props.history.push("/");
+  };
+
   return (
     <AddWordWrapper>
       <FormWrapper {...layout} onFinish={onFinish}>
         <Header
           title="My Dictionary 📚"
           subTitle="단어 등록"
-          onBack={() => null}
+          onBack={() => {
+            props.history.push("/");
+          }}
         />
         <FormItem label="단어">
-          <Input />
+          <Input ref={input_word_el} />
         </FormItem>
         <FormItem label="설명">
-          <Input.TextArea />
+          <Input.TextArea ref={input_desc_el} />
         </FormItem>
         <FormItem label="예시">
-          <Input.TextArea rows={5} />
+          <Input.TextArea rows={5} ref={input_example_el} />
         </FormItem>
         <FormItem wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
           <ButtonWrapper type="primary" htmlType="submit">
