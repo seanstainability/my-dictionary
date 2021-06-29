@@ -1,8 +1,7 @@
 import React from "react";
 import { Form, Input, Button, PageHeader } from "antd";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { addWord } from "./redux/modules/words";
+import { useDispatch } from "react-redux";
 import { addWordFB } from "./redux/modules/words";
 
 const layout = {

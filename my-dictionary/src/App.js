@@ -5,13 +5,16 @@ import AddWord from "./AddWord";
 import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import { getWordsFB } from "./redux/modules/words";
 
 const mapStateToProps = (state) => ({
   ...state,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  load: () => {},
+  load: () => {
+    dispatch(getWordsFB());
+  },
 });
 
 class App extends React.Component {
@@ -19,12 +22,18 @@ class App extends React.Component {
     super(props);
     this.state = {};
   }
+
+  componentDidMount() {
+    this.props.load();
+  }
+
   render() {
     return (
       <div>
         <Switch>
           <Route path="/" exact component={WordList} />
           <Route path="/add" exact component={AddWord} />
+          <Route path="/detail" exact component={AddWord} />
         </Switch>
         {/* <WordList /> */}
         {/* <AddWord /> */}
