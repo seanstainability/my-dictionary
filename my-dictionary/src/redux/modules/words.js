@@ -89,22 +89,27 @@ export const addWordFB = (word_item) => {
 
 export const updateWordFB = (word) => {
   return function (dispatch, getState) {
-    const _word_data = getState().words.words.find((v) => v.id === word.id);
-    console.log(_word_data);
+    const _word_data = getState().words.words[word.idx];
 
     if (!_word_data.id) {
       return;
     }
 
-    let word_data = { ..._word_data, completed: true };
+    // console.log("word_data", _word_data.id);
+    const new_word = {
+      word: word.word,
+      desc: word.desc,
+      example: word.example,
+    };
+    // console.log("new_word", new_word);
     words_db
-      .doc(word_data.id)
-      .update(word_data)
+      .doc(_word_data.id)
+      .update(new_word)
       .then((res) => {
-        dispatch(updateWord(word));
+        dispatch(updateWord({ ...word, id: _word_data.id }));
       })
       .catch((err) => {
-        // console.error(err);
+        console.error(err);
         console.log("firebase에서 업데이트 중 에러가 발생했습니다.");
       });
   };
@@ -147,10 +152,19 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case UPDATE_WORD: {
-      const words = { ...state.words };
-      const word_idx = state.words.findIndex((v) => v.id === action.word.id);
-      words[word_idx] = action.word;
+      const word_idx = action.word.idx;
+      const words = { ...state }.words;
+      // console.log(action.word);
+      const new_word = {
+        id: action.word.id,
+        word: action.word.word,
+        desc: action.word.desc,
+        example: action.word.example,
+      };
+      console.log("word", new_word);
+      words[word_idx] = new_word;
 
+      // console.log("UPDATE_WORD", new_word);
       return { ...state, words };
     }
 

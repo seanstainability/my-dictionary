@@ -6,6 +6,7 @@ import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { getWordsFB } from "./redux/modules/words";
+import UpdateWord from "./UpdateWord";
 
 const mapStateToProps = (state) => ({
   ...state,
@@ -33,7 +34,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/" exact component={WordList} />
           <Route path="/add" exact component={AddWord} />
-          <Route path="/detail" exact component={AddWord} />
+          <Route path="/update/:word_idx" exact component={UpdateWord} />
         </Switch>
         {/* <WordList /> */}
         {/* <AddWord /> */}

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, Button, PageHeader } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteWordFB, getWordsFB } from "./redux/modules/words";
+import { deleteWordFB } from "./redux/modules/words";
 import Spinner from "./Spinner";
 
 const WordList = (props) => {
@@ -21,8 +21,8 @@ const WordList = (props) => {
     props.history.push("/add");
   };
 
-  const onUpdate = (word_id) => {
-    props.history.push(`/detail/${word_id}`);
+  const onUpdate = (word_idx) => {
+    props.history.push(`/update/${word_idx}`);
     // dispatch(updateWordFB(word));
   };
 
@@ -52,7 +52,7 @@ const WordList = (props) => {
                 style={{ width: "100%", margin: "4px 0px" }}
                 cover={<ExampleText>{word.example}</ExampleText>}
                 actions={[
-                  <EditOutlined key="edit" onClick={() => onUpdate(word.id)} />,
+                  <EditOutlined key="edit" onClick={() => onUpdate(idx)} />,
                   <DeleteOutlined
                     key="delete"
                     onClick={() => onDelete(word.id)}
