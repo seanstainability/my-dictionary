@@ -49,7 +49,14 @@ const AddWord = (props) => {
         <FormItem label="예시">
           <Input.TextArea rows={5} ref={input_example_el} />
         </FormItem>
-        <FormItem wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+        <FormItem
+          wrapperCol={{ ...layout.wrapperCol }}
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
           <ButtonWrapper type="primary" htmlType="submit">
             등록하기
           </ButtonWrapper>

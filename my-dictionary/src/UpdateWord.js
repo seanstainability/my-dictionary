@@ -57,7 +57,14 @@ const UpdateWord = (props) => {
             defaultValue={list.example}
           />
         </FormItem>
-        <FormItem wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+        <FormItem
+          wrapperCol={{ ...layout.wrapperCol }}
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
           <ButtonWrapper type="primary" htmlType="submit">
             수정하기
           </ButtonWrapper>
